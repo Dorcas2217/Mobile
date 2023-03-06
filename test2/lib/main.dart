@@ -17,14 +17,14 @@ Widget titleSection = Container(
             Container(
               padding: const EdgeInsets.only(bottom: 8),
               child: const Text(
-                'Oeschinen Lake Campground',
+                'small learning of flutter',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Text(
-              'Kandersteg, Switzerland',
+              "I don't think it's difficult but it takes time",
               style: TextStyle(
                 color: Colors.grey[500],
               ),
