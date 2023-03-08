@@ -3,6 +3,8 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:test2/my_oeschinen_card.dart';
 
+import 'my_card.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -93,7 +95,13 @@ class MyApp extends StatelessWidget {
             buttonSection,
             textSection,
             const MyOeschinenCard(),
-          ],
+            const MyCard(
+              imageUri: "images/default.jpg",
+              title1: "coding is good only when you start to understand ",
+              title2: "CH",
+              description: "Wow... Nowhere is better than this...",
+            ), // New code
+        ],
         ),
       ),
     );
