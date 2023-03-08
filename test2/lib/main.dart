@@ -1,6 +1,7 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:test2/my_oeschinen_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
             'half-hour walk through pastures and pine forest, leads you to the '
             'lake, which warms to 20 degrees Celsius in the summer. Activities '
             'enjoyed here include rowing, and riding the summer toboggan run.',
-        softWrap: true,
+        softWrap: true,// pour que le texte remplisse la largeur de la page avant d'aller à la logne suivante
       ),
     );
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               children: [
                 /*2*/
                 Container(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: 20), // space occupied by this container
                   child: const Text(
                     'small learning of flutter',
                     style: TextStyle(
@@ -67,17 +68,18 @@ class MyApp extends StatelessWidget {
           Icon(
             Icons.star,
             color: Colors.red[500],
+            textDirection: TextDirection.ltr,
           ),
-          const Text('41'),
+          const Text('super100%'),
         ],
       ),
     );
 
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'Welcom to flutter ', // this title is visible in the url
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
+          title: const Text('app learn Flutteer'), // bold text from my page
         ),
         body: ListView(
           children: [
@@ -85,11 +87,12 @@ class MyApp extends StatelessWidget {
               'images/lake.jpg',
               width: 600,
               height: 240,
-              fit: BoxFit.cover,
+              fit: BoxFit.cover, //  what is it for ?
             ),
             titleSection,
             buttonSection,
             textSection,
+            const MyOeschinenCard(),
           ],
         ),
       ),
