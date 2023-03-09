@@ -1,3 +1,4 @@
+import 'package:ex1/prixNobel.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,22 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget nobelPrises = Container(
-      padding:  EdgeInsets.all(10),
-      child : Column(
-        children: [
-          Text(laureate1["motivation"]!,),
-          Row(
-            children: [
-              Text(laureate1["surname"]!),
-              Text(" "),
-              Text(laureate1["firstname"]!),
-
-            ],
-          )
-        ]
-        ),
-      );
 
 
     return MaterialApp(
@@ -36,7 +21,9 @@ class MyApp extends StatelessWidget {
         body: ListView(
           children: [
             Text('Prises'),
-            nobelPrises,
+            PrixNobel(motivation: laureate1["motivation"]!,
+              surname: laureate1["surname"],
+              firstname: laureate1["firstname"],)
           ]
         ),
       ),
@@ -52,3 +39,5 @@ const laureate1 = {
   "\"for their efforts to build up and disseminate greater knowledge about man-made climate change, and to lay the foundations for the measures that are needed to counteract such change\"",
   "share": "2"
 };
+
+
