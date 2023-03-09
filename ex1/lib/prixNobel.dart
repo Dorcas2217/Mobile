@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PrixNobel extends StatelessWidget {
   final String motivation;
@@ -12,11 +13,17 @@ class PrixNobel extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      padding:  EdgeInsets.all(10),
+      padding:  EdgeInsets.all(30),
+      color: Colors.cyanAccent,
       child : Column(
           children: [
-            Text(motivation),
+            Text(
+                textAlign: TextAlign.left,
+
+
+                motivation),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(surname!),
                 Text(" "),
