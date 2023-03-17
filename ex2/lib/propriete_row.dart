@@ -11,7 +11,7 @@ class ProprieteRow extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ListTile(
-      title: Text("Cette  propriété ${estAppartement()} "
+      title: Text("Cette propriete   ${estAppartement()} "
           "\n Nombre de chambre :  ${propriete.nbrChambre}, "),
       subtitle: Text("prix :  ${propriete.prix}, Nombre de mètre de carré : ${propriete.nbrMetresCarre}"),
       textColor: Colors.black,

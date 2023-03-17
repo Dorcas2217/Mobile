@@ -15,11 +15,11 @@ class Propriete {
 List<Propriete> mesListe(){
 
   final listePropriete1 =[
-    for(var i = 3 ; i<=8; i++)
-      Propriete(nbrChambre: i, nbrMetresCarre: i*200, prix: i*200*50, aVendre: true)
+    for(var i = 3 ; i<=20; i++)
+      Propriete(nbrChambre: i, nbrMetresCarre: i*200, prix: i*200*50)
   ];
 
-  final listePropriete2 = List.generate(10, (index) => Propriete(nbrChambre: index*3, nbrMetresCarre:index*3*200 , prix: index*3*200*50));
+  final listePropriete2 = List.generate(20, (index) => Propriete(nbrChambre: index*3, nbrMetresCarre:index*3*200 , prix: index*3*200*50, aVendre: true, estApartement: true));
 
   return [...listePropriete1, ...listePropriete2 ];
 }
