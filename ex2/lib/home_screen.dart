@@ -15,20 +15,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var aVendre = false ;
+
+  void switchAVendre() => setState(() {
+    aVendre = !aVendre;
+  });
+
+
   @override
   Widget build(BuildContext context) {
-  final  displayPropriete = defaultPropriete;
+  final  displayPropriete;
+
+  if(aVendre){
+    displayPropriete = [
+      for (var property in defaultProprieteAvendre) property
+    ];
+  } else{
+    displayPropriete = [
+      for (var property in defaultPropertyLoc) property
+    ];
+
+  }
+
     return Scaffold(
       appBar: AppBar(
          title: Text("Properties to rent/sell"),
+         actions: [
+          Switch(value: aVendre,
+              activeColor: Colors.orange,
+              onChanged: (bool value){
+                switchAVendre();
+              })
+        ],
       ),
       body: Container(
          padding: const EdgeInsets.all(30),
          child: Center(
            child: ListView.builder(
-             itemCount:  defaultPropriete.length,
+             itemCount:  displayPropriete.length,
              itemBuilder: (context, index ) => ProprieteRow(
-                 propriete: defaultPropriete[index],
+                 propriete: displayPropriete[index],
              ),
            ),
          ),

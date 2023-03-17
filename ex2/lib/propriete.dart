@@ -25,3 +25,5 @@ List<Propriete> mesListe(){
 }
 
 final defaultPropriete = mesListe();
+final defaultProprieteAvendre = defaultPropriete.where((element) => element.aVendre).toList();
+final defaultPropertyLoc = defaultPropriete.where((element) => !element.aVendre).toList();
