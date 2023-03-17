@@ -1,3 +1,5 @@
+import 'package:ex2/propriete.dart';
+import 'package:ex2/propriete_row.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -102,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            ProprieteRow(propriete: Propriete(nbrChambre:2, nbrMetresCarre:400, prix: 1000))
           ],
         ),
       ),
