@@ -2,7 +2,7 @@ import 'package:flutt04/view_model/click_view_model.dart';
 import 'package:flutt04/views/second_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package: flutter/provider.dart';
+import 'package:provider/provider.dart';
 import 'views/first_screen.dart';
 
 void main() {

@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class FirstScreen extends StatefulWidget {
+import '../view_model/click_view_model.dart';
+
+class FirstScreen extends StatelessWidget {
   const FirstScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FirstScreen> createState() => _FirstScreenState();
-}
-
-class _FirstScreenState extends State<FirstScreen> {
-  var nbClicks = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +18,18 @@ class _FirstScreenState extends State<FirstScreen> {
             const Text("Hello from first screen."),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => setState(() => nbClicks++),
+              onPressed: () {
+                final viewModel = Provider.of<ClickViewModel>(
+                  context,
+                  listen: false,
+                );
+                viewModel.increment();
+              },
               child: const Text("click me"),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(
-                context,
-                "/second",
-                arguments: nbClicks,
-              ),
+              onPressed: () => Navigator.pushNamed(context, "/second"),
               child: const Text("Go to second screen"),
             ),
           ],
@@ -40,3 +38,4 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 }
+
