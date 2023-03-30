@@ -9,17 +9,13 @@ class ArticleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final article = Article(
-      title: "title",
-      author: "author",
-      content: "content",
-    ); // TODO F06 get article from route argument
+    final article = ModalRoute.of(context)!.settings.arguments as Article; // TODO F06 get article from route argument
     return Scaffold(
       appBar: AppBar(
         title: const Text("Article"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {}, // TODO F06 go back
+          onPressed: () => Navigator.pop(context), // TODO F06 go back
         ),
       ),
       floatingActionButton: FloatingActionButton(

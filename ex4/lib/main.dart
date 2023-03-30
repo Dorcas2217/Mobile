@@ -1,3 +1,7 @@
+import 'package:ex4/view/article_screen.dart';
+import 'package:ex4/view/form_screen.dart';
+import 'package:ex4/view_model/article.dart';
+import 'package:ex4/view/list_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +28,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.purple,
       ),
-      home: ,
+       initialRoute: "/list_screen",
+      routes: {
+        "/list_screen": (context)=>const ListScreen(),
+        "/article_screen" : (context) => const ArticleScreen(),
+        "/form_screen": (context) => const FormScreen()
+      },
+      
     );
   }
 }
