@@ -1,5 +1,7 @@
-import 'package:ex4/view_model/article.dart';
+
 import 'package:flutter/material.dart';
+
+import '../model/article.dart';
 
 
 

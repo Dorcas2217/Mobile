@@ -1,6 +1,5 @@
 import 'package:ex4/view/article_screen.dart';
 import 'package:ex4/view/form_screen.dart';
-import 'package:ex4/view_model/article.dart';
 import 'package:ex4/view/list_screen.dart';
 import 'package:flutter/material.dart';
 

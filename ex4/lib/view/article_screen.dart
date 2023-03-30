@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../view_model/article.dart';
+import '../model/article.dart';
 
 
 
