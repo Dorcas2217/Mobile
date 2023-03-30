@@ -29,7 +29,7 @@ class _FormScreenState extends State<FormScreen> {
         title: const Text("New article"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {}, // TODO F06 go back
+          onPressed: () => Navigator.pop(context), // TODO F06 go back
         ),
       ),
       body: Padding(
