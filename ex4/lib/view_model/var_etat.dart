@@ -1,3 +1,7 @@
+import 'dart:collection';
+import 'dart:html';
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 
 import '../model/article.dart';
@@ -5,9 +9,11 @@ import '../model/article.dart';
 class VarEtat extends ChangeNotifier{
   var articles = defaultArticles;
 
-  bool _displayArticles = false;
+ // UnmodifiableListView<Article> get articles => UnmodifiableListView(_articles);
 
-  bool get displayArticlesLues => _displayArticles;
+  bool _displayReadArticle = true;
+
+  bool get displayArticleLue => _displayReadArticle;
 
   Article getArticle(id){
     return articles[id];
@@ -24,13 +30,27 @@ class VarEtat extends ChangeNotifier{
   }
 
   void setArticleLue(){
-   _displayArticles = !_displayArticles;
+   _displayReadArticle = !_displayReadArticle;
    notifyListeners();
   }
 
-  List getListArticle(){
+  void changeRead(Article article ){
+    for(Article a in  articles) {
+      if(a.id == article.id) a.read =!a.read;
+    }
+    notifyListeners();
+  }
 
-    return articles;
+  List<Article> getListArticle(){
+    List<Article> list = [];
+
+      for(Article a in articles) {
+        if(a.read ){
+          list.add(a);
+        }
+      }
+
+    return (_displayReadArticle) ? articles : list ;
   }
 
 

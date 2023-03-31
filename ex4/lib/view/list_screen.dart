@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/article.dart';
+import '../view_model/var_etat.dart';
 
 
 
@@ -10,29 +12,33 @@ class ListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var showRead = false; // TODO F07 get state from view model
-    var articles = [
-      for (var article in defaultArticles)
-        if (showRead || !article.read) article
-    ]; // TODO F07 get state from view model
+                      // TODO F07 get state from view model
+                     // TODO F07 get state from view model
     return Scaffold(
       appBar: AppBar(
         title: const Text("Articles"),
         actions: [
+          Consumer<VarEtat>(
+              builder: (context, viewModel, _) =>
           IconButton(
-            icon: showRead
+            icon : viewModel.displayArticleLue
                 ? const Icon(Icons.check_box)
                 : const Icon(Icons.check_box_outline_blank),
-            onPressed: () {}, // TODO F07 show/hide read articles
+            onPressed: () => viewModel.setArticleLue(), // TODO F07 show/hide read articles
+          ),
           ),
           IconButton(icon: const Icon(Icons.abc), onPressed: () {}),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, "/form_screen"), // TODO F06 go to create screen
+        onPressed: () => Navigator.pushNamed(context, "/form"), // TODO F06 go to create screen
         child: const Icon(Icons.add),
       ),
-      body: Padding(
+      body:
+      Consumer<VarEtat>(
+          builder: (context, viewModel, child) {
+            var articles = viewModel.getListArticle();
+      return   Padding(
         padding: const EdgeInsets.all(32.0),
         child: articles.isEmpty
             ? const Center(
@@ -49,14 +55,14 @@ class ListScreen extends StatelessWidget {
                           icon: article.read
                               ? const Icon(Icons.check_box)
                               : const Icon(Icons.check_box_outline_blank),
-                          onPressed: () {}, // TODO F07 mark as read
+                          onPressed: () => viewModel.changeRead(article), // TODO F07 mark as read
                         ),
                         title: Text(article.title),
                         subtitle: Text(article.author),
-                        onTap: () => Navigator.pushNamed(context, "/article_screen", arguments: article), // TODO F06 go to article
+                        onTap: () => Navigator.pushNamed(context, "/article", arguments: article), // TODO F06 go to article
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
-                          onPressed: () {}, // TODO F07 delete article
+                          onPressed: () => viewModel.deleteArticle(article), // TODO F07 delete article
                         ),
                       ),
                       const Divider(),
@@ -64,7 +70,8 @@ class ListScreen extends StatelessWidget {
                   );
                 },
               ),
-      ),
+      );
+    }),
     );
   }
 }

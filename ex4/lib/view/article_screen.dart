@@ -1,15 +1,22 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/article.dart';
+import '../view_model/var_etat.dart';
 
 
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-    final article = ModalRoute.of(context)!.settings.arguments as Article; // TODO F06 get article from route argument
+    final article = ModalRoute.of(context)!.settings.arguments as Article;
+    final widget =  Provider.of<VarEtat>(context, listen : false);
+// TODO F06 get article from route argument
     return Scaffold(
       appBar: AppBar(
         title: const Text("Article"),
@@ -21,8 +28,9 @@ class ArticleScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: article.read
             ? const Icon(Icons.check_box)
-            : const Icon(Icons.check_box_outline_blank),
-        onPressed: () {}, // TODO F07 mark as read
+            :const Icon(Icons.check_box_outline_blank) ,
+
+        onPressed: () => widget.changeRead(article) , // TODO F07 mark as read
       ),
       body: Padding(
         padding: const EdgeInsets.all(32),

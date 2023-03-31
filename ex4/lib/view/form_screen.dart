@@ -1,4 +1,7 @@
+import 'package:ex4/model/article.dart';
+import 'package:ex4/view_model/var_etat.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key}) : super(key: key);
@@ -24,6 +27,7 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("New article"),
@@ -68,7 +72,12 @@ class _FormScreenState extends State<FormScreen> {
                 child: const Text("Create article"),
                 onPressed: () {
                   if (key.currentState!.validate()) {
-                    // TODO F07 create article
+                    final widget =  Provider.of<VarEtat>(context, listen : false);
+                    Article article = Article(title: titleController.text,
+                        author: authorController.text, content: contentController.text);
+                    widget.addArticle(article);
+                     Navigator.pop(context);
+                  // TODO F07 create article
                   }
                 },
               )
