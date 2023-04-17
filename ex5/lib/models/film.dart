@@ -7,16 +7,18 @@ import 'package:http/http.dart' as http;
 class Film {
   static const baseUrl = "https://sebstreb.github.io/flutter-fiche-5/ghibli-films";
 
-  final int id;
+  final String id;
   final String title;
   final String movieBanner;
   final String releaseDate;
   final String runningTime;
   final String director;
   final String rtScore;
+  final String description;
 
   const Film(this.id, this.title, this.movieBanner,
-      this.releaseDate, this.runningTime, this.director, this.rtScore);
+      this.releaseDate, this.runningTime, this.director, this.rtScore,
+      this.description);
 
 
   Film.fromJson(Map<String, dynamic> objectJson)
@@ -28,6 +30,7 @@ class Film {
     objectJson["running_time"],
     objectJson["director"],
     objectJson["rt_score"],
+    objectJson["description"]
   );
 
   @override
@@ -48,7 +51,7 @@ class Film {
     return compute((input) {
       final jsonList = jsonDecode(input);
 
-     return  jsonList.map<Film, dynamic>((jsonObj) => Film.fromJson(jsonObj)).toList();
+     return  jsonList.map<Film>((jsonObj) => Film.fromJson(jsonObj)).toList();
     }, response.body);
   }
 

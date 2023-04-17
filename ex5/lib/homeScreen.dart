@@ -29,7 +29,8 @@ List<Film> listFilm = [];
     } catch(error){
       setState(() {
       //  expected = error.toString();
-        state = FetchState.error.name;
+        state = error.toString();
+
         print(listFilm);
       });
     }
@@ -68,18 +69,55 @@ class FilmRowww extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
-      title: Text(film.title),
-      subtitle: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: [
-         Text("${film.movieBanner} - Director by ${film.director}"
-             "\n release in ${film.releaseDate} - running time : ${film.runningTime} "
-             "\score : ${film.rtScore} ")
-       ],
+
+    return  Card(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(
+            film.movieBanner,
+            width: 150,
+            height: 150,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  film.title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'release in : ${film.releaseDate}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  film.rtScore,
+                   selectionColor: Colors.deepPurple,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Directed by : ${film.director}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  film.description,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-       tileColor: Colors.cyan,
     );
+
+
   }
 }
 
