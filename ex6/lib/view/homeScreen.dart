@@ -61,7 +61,7 @@ class PhotoRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
            Image.network(
-             photo.thumbnailUrl,
+             photo?.thumbnailUrl ?? "null",
              width: 150,
              height: 150,
              fit: BoxFit.cover,
@@ -77,7 +77,7 @@ class PhotoRow extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 15),
-                    Text(photo.title,
+                    Text(photo?.title ?? "null",
                     style: const TextStyle(fontSize: 20),
                     )
                 ],

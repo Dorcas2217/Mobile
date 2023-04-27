@@ -7,8 +7,8 @@ class Photo {
   static const baseUrl = "https://unreal-api.azurewebsites.net";
 
   final int id;
-  final String title;
-  final String thumbnailUrl;
+  final String? title;
+  final String? thumbnailUrl;
 
   const Photo(this.id, this.title, this.thumbnailUrl);
 
