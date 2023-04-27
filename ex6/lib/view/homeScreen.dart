@@ -1,6 +1,8 @@
 import 'package:ex6/models/photo.dart';
+import 'package:ex6/view_model/photo_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,47 +14,37 @@ class HomeScreen extends StatefulWidget {
 enum  FetchState { loading, error, done}
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Photo> listPic = [];
-  String state = FetchState.loading.name;
-
-  Future<List<dynamic>> _getPictures() async{
-
-    var response = await Photo.fetchAllPhotos();
-
-    if(response.isNotEmpty){
-      listPic.addAll(response);
-      print(listPic);
-
-      state = FetchState.done.name;
-      return listPic.reversed.toList();
-    }else{
-      state = FetchState.error.name;
-      throw Exception('Failed to load data');
-    }
-
-  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text(" Exercice 6 Photo")),
-      body: FutureBuilder<List<dynamic>>( // la future builder n'est appelé qu'une seule fois
-        future: Future.delayed(const Duration(seconds: 1 ), ()=> _getPictures() ),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              itemBuilder: (context, i) => PhotoRow(photo: snapshot.data?[i]),
-            );
-          } else if(snapshot.hasError){
-           return Column(children: [Expanded(child: Center(child:  Text(snapshot.error.toString())))]);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
 
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, "/photo"),
+        child: const Icon(Icons.add),
       ),
+      body: Consumer<PhotoView>(
+          builder: (context, viewModel, child) {
+            var getPictures = viewModel.getPictures();
+    return FutureBuilder<List<dynamic>>( // la future builder n'est appelé qu'une seule fois
+    future: Future.delayed(const Duration(seconds: 0 ), ()=> getPictures),
+    builder: (context, snapshot) {
+        if(snapshot.hasData){
+        return ListView.builder(
+        itemCount: snapshot.data?.length,
+        itemBuilder: (context, i) => PhotoRow(photo: snapshot.data?[i]),
+        );
+        } else if(snapshot.hasError){
+        return Column(children: [Expanded(child: Center(
+            child: Text(snapshot.error.toString())))]);
+        } else {
+        return const Center(child: CircularProgressIndicator());
+        }
+        },
+    );
+    }),
     );
   }
 }
@@ -80,8 +72,8 @@ class PhotoRow extends StatelessWidget {
                 children: [
                   const SizedBox(height: 8),
                     Text(
-                      photo.id,
-                      style: const TextStyle(fontSize: 10),
+                      photo.id.toString(),
+                      style: const TextStyle(fontSize: 16),
                     ),
 
                     const SizedBox(height: 15),

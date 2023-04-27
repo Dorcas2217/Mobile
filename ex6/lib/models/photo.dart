@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class Photo {
   static const baseUrl = "https://unreal-api.azurewebsites.net";
 
-  final String id;
+  final int id;
   final String title;
   final String thumbnailUrl;
 
@@ -17,7 +17,6 @@ class Photo {
         objectJson["id"],
         objectJson["title"],
         objectJson["thumbnailUrl"]
-
       );
 
   @override
@@ -30,7 +29,7 @@ class Photo {
   static Future<List<Photo>> fetchAllPhotos() async {
 
     var response = await http.get(Uri.parse("$baseUrl/photos"));
-     print(response.body);
+
     if(response.statusCode != 200 ){
       throw Exception(" Error ${response.statusCode} fecthing photos");
     }
