@@ -64,7 +64,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
 
             const SizedBox(height: 16),
             ElevatedButton(
-              child: const Text("Create article"),
+              child: const Text("Create picture"),
               onPressed: () {
                 if (key.currentState!.validate()) {
                   final widget =  Provider.of<PhotoView>(context, listen : false);

@@ -1,6 +1,6 @@
 import 'package:ex6/models/photo.dart';
 import 'package:ex6/view_model/photo_view.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_loading_animation_kit/flutter_loading_animation_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,11 @@ enum  FetchState { loading, error, done}
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<PhotoView>(context, listen: false).getListPicture();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Consumer<PhotoView>(
           builder: (context, viewModel, child) {
-            var getPictures = viewModel.getPictures();
+            var getPictures = viewModel.getListPicture();
     return FutureBuilder<List<dynamic>>( // la future builder n'est appelé qu'une seule fois
-    future: Future.delayed(const Duration(seconds: 0 ), ()=> getPictures),
+    future: Future.delayed(const Duration(seconds: 4 ), ()=> getPictures),
     builder: (context, snapshot) {
         if(snapshot.hasData){
         return ListView.builder(
@@ -40,7 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
         return Column(children: [Expanded(child: Center(
             child: Text(snapshot.error.toString())))]);
         } else {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(
+          child: FourCirclePulse(
+            circleColor: Colors.blue, //The color of the circles
+            dimension: 48.0, // The size of the widget.
+            turns: 2, //Turns in each loop
+            loopDuration: Duration(seconds: 1), // Duration of each loop
+            curve: Curves.linear, //Curve of the animation
+          ),
+        );
         }
         },
     );
@@ -59,13 +72,15 @@ class PhotoRow extends StatelessWidget {
     return Card(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: [ 
+          Flexible(child:
            Image.network(
-             photo?.thumbnailUrl ?? "null",
+             photo.thumbnailUrl ?? "null",
              width: 150,
              height: 150,
              fit: BoxFit.cover,
-           ),
+           )
+          ),
           Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +92,7 @@ class PhotoRow extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 15),
-                    Text(photo?.title ?? "null",
+                    Text(photo.title ?? "null",
                     style: const TextStyle(fontSize: 20),
                     )
                 ],
