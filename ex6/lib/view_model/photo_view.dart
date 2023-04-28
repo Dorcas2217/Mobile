@@ -13,7 +13,7 @@ class PhotoView extends ChangeNotifier {
   String state = FetchState.loading.name;
 
 
-  Future<List<dynamic>> getPictures() async {
+  Future<List<Photo>> getPictures() async {
     var response = await Photo.fetchAllPhotos();
 
     if (response.isNotEmpty) {
