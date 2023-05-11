@@ -1,5 +1,6 @@
 import 'package:ex7/TelDialog.dart';
 import 'package:ex7/view_model/SosViewModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String emergencyMessage = "I'm having an emergency at @loc, send help!";
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => UrgenceMessageDialog(
-                    initialMessage: emergencyMessage,
-                    onSave: (newMessage) {
-                      setState(() {
-                        emergencyMessage = newMessage;
-                      });
-                    },
+                  message: Provider.of<SosViewModel>(context, listen: false).getMessage,
                   ),
                 ),
                 child: const Text("Change SOS Message"),
@@ -43,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   context: context,
                   builder: (context) => const TelDialog(),
                 ),
-                child: const Text("Manage SOS recipients"),
+                child: const Text("Manage your contacts SOS"),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -51,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   var provider = Provider.of<SosViewModel>(context, listen: false);
                   await provider.sendSOS();
                 },
-                child: const Text("Send message to evryone !"),
+                child: const Text("Send message to evreyone !"),
               )
 
             ],
@@ -64,13 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 class UrgenceMessageDialog extends StatefulWidget {
-  final String initialMessage;
-  final void Function(String newMessage) onSave;
+  final String message;
 
   const UrgenceMessageDialog({
     Key? key,
-    required this.initialMessage,
-    required this.onSave,
+    required this.message,
   }) : super(key: key);
 
   @override
@@ -78,19 +71,9 @@ class UrgenceMessageDialog extends StatefulWidget {
 }
 
 class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
-  late TextEditingController messageController;
+  final messageController = TextEditingController();
+  final key = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    messageController = TextEditingController(text: widget.initialMessage);
-  }
-
-  @override
-  void dispose() {
-    messageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,19 +84,28 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Write your new SOS message. You can fill in your actual location using @loc",
+              "Write your new SOS message.",
               style: TextStyle(
                 fontSize: 14,
               ),
             ),
             const SizedBox(height: 8),
-            TextField(
-              controller: messageController,
-              style: const TextStyle(fontSize: 14),
-              maxLines: null, // Display TextField on multiple lines
-              decoration: const InputDecoration(
-                labelText: "New message",
-              ),
+            Form(
+
+              key: key,
+              child: Column(
+                children: [
+                  TextFormField(
+                  controller: messageController,
+                  style: const TextStyle(fontSize: 14),
+                  decoration: const InputDecoration(
+                      labelText: "New message",
+                    ),
+                    validator: (value) => (value == null || value == "")
+                        ? "message can not be empty "
+                        : null,
+                  )
+                ],),
             ),
           ],
         ),
@@ -123,12 +115,16 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
           onPressed: () => Navigator.pop(context),
           child: const Text("Cancel"),
         ),
-        ElevatedButton(
+        IconButton(
           onPressed: () {
-            widget.onSave(messageController.text);
-            Navigator.pop(context);
+            if(key.currentState!.validate()){
+              var provider = Provider.of<SosViewModel>(context, listen: false);
+              provider.updateMessage(messageController.text);
+              Navigator.pop(context);
+            }
           },
-          child: const Text("Save"),
+          icon: const Icon(Icons.subdirectory_arrow_right),
+          color: Colors.pinkAccent,
         ),
       ],
     );

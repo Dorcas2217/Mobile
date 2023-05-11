@@ -4,7 +4,7 @@ import 'package:location/location.dart';
 
 class SosViewModel extends ChangeNotifier{
   var message = "Help me!";
-  List<String> phones = ["0471897855"];
+  List<String> phones = ["+32492877015"];
 
   String get getMessage => message;
 

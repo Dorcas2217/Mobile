@@ -1,9 +1,6 @@
-
 import 'package:ex7/view_model/SosViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-
 
 class TelDialog extends StatefulWidget {
   const TelDialog({Key? key}) : super(key: key);
@@ -14,7 +11,6 @@ class TelDialog extends StatefulWidget {
 
 class _TelDialogState extends State<TelDialog> {
   final phoneController = TextEditingController();
-
   final key = GlobalKey<FormState>();
 
   @override
@@ -27,7 +23,7 @@ class _TelDialogState extends State<TelDialog> {
   Widget build(BuildContext context) {
     return Consumer<SosViewModel>(
       builder: (context, model, child) => AlertDialog(
-        title: const Text("Manage SOS Recipients"),
+        title: const Text("Manage your contacts SOS"),
         content: SizedBox(
           height: double.maxFinite,
           width: double.maxFinite,
@@ -77,7 +73,7 @@ class _TelDialogState extends State<TelDialog> {
                       phoneController.clear();
                     }
                   },
-                  icon: const Icon(Icons.add)
+                  icon: const Icon(Icons.subdirectory_arrow_right)
               )
             ],
           ),
