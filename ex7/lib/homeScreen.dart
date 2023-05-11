@@ -1,5 +1,7 @@
 import 'package:ex7/TelDialog.dart';
+import 'package:ex7/view_model/SosViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,7 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => const TelDialog(),
                 ),
                 child: const Text("Manage SOS recipients"),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  var provider = Provider.of<SosViewModel>(context, listen: false);
+                  await provider.sendSOS();
+                },
+                child: const Text("Send message to evryone !"),
               )
+
             ],
           ),
         ),
