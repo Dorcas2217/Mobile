@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
+import '../location_dialog.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -47,8 +49,17 @@ class HomeScreen extends StatelessWidget {
                 )
               else
                 const Text("Your platform doesn't allow you to send SMS…"),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => const LocationDialog(),
+                ),
+                child: const Text("Retrieve location"),
+              ),
             ],
           ),
+
 
         ),
       ),
