@@ -1,3 +1,4 @@
+import 'package:ex7/TelDialog.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => EmergencyMessageDialog(
+                  builder: (context) => UrgenceMessageDialog(
                     initialMessage: emergencyMessage,
                     onSave: (newMessage) {
                       setState(() {
@@ -34,6 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: const Text("Change SOS Message"),
               ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => const TelDialog(),
+                ),
+                child: const Text("Manage SOS recipients"),
+              )
             ],
           ),
         ),
@@ -43,21 +52,21 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 
-class EmergencyMessageDialog extends StatefulWidget {
+class UrgenceMessageDialog extends StatefulWidget {
   final String initialMessage;
   final void Function(String newMessage) onSave;
 
-  const EmergencyMessageDialog({
+  const UrgenceMessageDialog({
     Key? key,
     required this.initialMessage,
     required this.onSave,
   }) : super(key: key);
 
   @override
-  _EmergencyMessageDialogState createState() => _EmergencyMessageDialogState();
+  _UrgenceMessageDialogState createState() => _UrgenceMessageDialogState();
 }
 
-class _EmergencyMessageDialogState extends State<EmergencyMessageDialog> {
+class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
   late TextEditingController messageController;
 
   @override
