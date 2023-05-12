@@ -3,13 +3,13 @@ import 'package:flutter_sms/flutter_sms.dart';
 import 'package:location/location.dart';
 
 class SosViewModel extends ChangeNotifier{
-  var message = "Help me!";
+  var _message = "Help me!";
   List<String> phones = ["+32492877015"];
 
-  String get getMessage => message;
+  String get getMessage => _message;
 
   void updateMessage(String message){
-    this.message = message;
+    _message = message;
     notifyListeners();
   }
 
@@ -26,7 +26,7 @@ class SosViewModel extends ChangeNotifier{
   Future<void> sendSOS() async {
     var location = await _getLocation();
     await sendSMS(
-      message: message.replaceFirst("@loc", "${location?.latitude}, ${location?.longitude}"),
+      message: _message.replaceFirst("@loc", "${location?.latitude}, ${location?.longitude}"),
       recipients: [...phones],
     );
   }

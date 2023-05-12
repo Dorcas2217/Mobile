@@ -66,14 +66,15 @@ class _TelDialogState extends State<TelDialog> {
                   ],
                 ),
               ),
-              IconButton(
+              TextButton(
                   onPressed: () {
                     if (key.currentState!.validate()) {
                       model.addPhone(phoneController.text);
                       phoneController.clear();
                     }
                   },
-                  icon: const Icon(Icons.subdirectory_arrow_right)
+                  child: const Text("submit")
+
               )
             ],
           ),

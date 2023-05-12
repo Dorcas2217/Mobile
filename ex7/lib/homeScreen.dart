@@ -26,9 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () => showDialog(
                   context: context,
-                  builder: (context) => UrgenceMessageDialog(
-                  message: Provider.of<SosViewModel>(context, listen: false).getMessage,
-                  ),
+                  builder: (context) => UrgenceMessageDialog(),
                 ),
                 child: const Text("Change SOS Message"),
               ),
@@ -59,11 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 class UrgenceMessageDialog extends StatefulWidget {
-  final String message;
 
   const UrgenceMessageDialog({
     Key? key,
-    required this.message,
   }) : super(key: key);
 
   @override
@@ -74,9 +70,16 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
   final messageController = TextEditingController();
   final key = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    super.dispose();
+    messageController.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    messageController.text = Provider.of<SosViewModel>(context,listen: false).getMessage;
     return AlertDialog(
       title: const Text("Update SOS message"),
       content: SingleChildScrollView(
@@ -91,7 +94,6 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
             ),
             const SizedBox(height: 8),
             Form(
-
               key: key,
               child: Column(
                 children: [
@@ -115,7 +117,7 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
           onPressed: () => Navigator.pop(context),
           child: const Text("Cancel"),
         ),
-        IconButton(
+        TextButton(
           onPressed: () {
             if(key.currentState!.validate()){
               var provider = Provider.of<SosViewModel>(context, listen: false);
@@ -123,8 +125,7 @@ class _UrgenceMessageDialogState extends State<UrgenceMessageDialog> {
               Navigator.pop(context);
             }
           },
-          icon: const Icon(Icons.subdirectory_arrow_right),
-          color: Colors.pinkAccent,
+          child: const Text("Save"),
         ),
       ],
     );
